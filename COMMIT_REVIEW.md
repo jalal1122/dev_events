@@ -76,8 +76,10 @@ This is an initial commit that sets up a Next.js 16 application for a developer 
    - **Status:** ✅ Fixed - Removed all commented code
 
 2. **File:** `Components/ExploreBtn.tsx`
-   - **Line 7:** Console.log in production code: `onClick={() => console.log("clicked")}`
-   - **Status:** ✅ Fixed - Removed console.log and onClick handler
+   - **Issue 1:** Console.log in production code: `onClick={() => console.log("clicked")}`
+   - **Status:** ✅ Fixed - Removed console.log
+   - **Issue 2:** Invalid HTML structure with anchor tag nested inside button
+   - **Status:** ✅ Fixed - Replaced with proper button onClick handler with smooth scroll
 
 3. **File:** `app/layout.tsx`
    - **Line 19:** Typo in description: "Deb Event You Musn't Miss" should be "Dev Event You Mustn't Miss"
@@ -141,8 +143,9 @@ This is an initial commit that sets up a Next.js 16 application for a developer 
 2. ✅ **Removed commented code** from `app/page.tsx`
    - Cleaned up 42 lines of commented event data
    
-3. ✅ **Removed console.log** from `Components/ExploreBtn.tsx`
-   - Removed unnecessary console output
+3. ✅ **Fixed HTML structure issue** in `Components/ExploreBtn.tsx`
+   - Removed invalid nested anchor tag inside button
+   - Implemented proper onClick handler with smooth scroll behavior
    
 4. ✅ **Fixed typo** in `app/layout.tsx`
    - Corrected "Deb Event You Musn't Miss" to "Dev Event You Mustn't Miss"
