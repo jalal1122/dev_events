@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const ExploreBtn = () => {
   return (
-    <button type="button" id="explore-btn" className="mt-7 mx-auto" onClick={() => console.log("clicked")}>
+    <button type="button" id="explore-btn" className="mt-7 mx-auto">
       <a href="#events">
         Explore Events
         <Image
