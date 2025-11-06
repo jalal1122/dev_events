@@ -4,7 +4,7 @@ import Link from "next/link";
 const Header = () => {
   const navLinks = [
     { href: "/", label: "Home" },
-    { href: "/events", label: "Events" },
+    { href: "/#events", label: "Events" },
     { href: "/create-event", label: "Create Event" },
   ];
 
