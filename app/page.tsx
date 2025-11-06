@@ -1,6 +1,8 @@
 import EventCard from "@/Components/EventCard";
 import ExploreBtn from "@/Components/ExploreBtn";
-import { events, type Event } from '@/lib/constants';
+import { IEvent } from "@/database";
+import { cacheLife, cacheTag } from "next/cache";
+// import { events, type Event } from "@/lib/constants";
 
 // const events = [
 //   {
@@ -45,7 +47,25 @@ import { events, type Event } from '@/lib/constants';
 //   },
 // ];
 
-export default function Home() {
+const BaseURL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+
+export default async function Home() {
+
+  "use cache";
+  cacheLife("hours");
+  cacheTag("home-page");
+
+  let events: IEvent[] = [];
+  try {
+    const res = await fetch(`${BaseURL}/api/events`);
+    if (!res.ok) throw new Error("Failed to fetch events");
+    const data = await res.json();
+    events = data.events;
+  } catch (error) {
+    console.error("Error fetching events:", error);
+    events = [];
+  }
+
   return (
     <section className="">
       <h1 className="text-center">
@@ -60,11 +80,13 @@ export default function Home() {
         <h3>Featured Events</h3>
 
         <ul id="events" className="events list-none">
-          {events.map((event: Event) => (
-            <li key={event.title}>
-              <EventCard {...event} />
-            </li>
-          ))}
+          {events &&
+            events.length > 0 &&
+            events.map((event: IEvent) => (
+              <li key={event.title}>
+                <EventCard {...event} />
+              </li>
+            ))}
         </ul>
       </div>
     </section>
