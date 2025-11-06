@@ -1,9 +1,7 @@
 import BookEvent from "@/Components/BookEvent";
 import EventCard from "@/Components/EventCard";
 import { IEvent } from "@/database";
-import {
-  GetSimilarEventsBySlug,
-} from "@/lib/actions/event.actions";
+import { GetSimilarEventsBySlug } from "@/lib/actions/event.actions";
 import { cacheLife, cacheTag } from "next/cache";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -72,8 +70,7 @@ const EventDetails = async ({
     const data = await res.json();
     event = data.event;
     console.log("event ", event);
-    
-  } catch (error) {
+  } catch {
     return notFound();
   }
 

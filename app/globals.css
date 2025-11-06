@@ -270,4 +270,140 @@
       }
     }
   }
+
+  #event-form {
+    @apply flex flex-col gap-6 w-full;
+
+    form {
+      @apply flex flex-col gap-4 bg-dark-100 p-6 rounded-lg;
+
+      div {
+        @apply flex flex-col gap-2;
+
+        input,
+        textarea,
+        select {
+          @apply bg-dark-200 rounded-[6px] px-5 py-2.5;
+        }
+      }
+
+      button {
+        @apply bg-primary hover:bg-primary/90 w-full cursor-pointer items-center justify-center rounded-[6px] px-4 py-2.5 text-lg font-semibold text-black;
+      }
+    }
+  }
+
+  #create-event-form {
+    @apply max-w-4xl mx-auto p-6;
+
+    .page-header {
+      @apply mb-8;
+
+      h1 {
+        @apply text-3xl font-bold mb-2;
+      }
+
+      p {
+        @apply text-light-100;
+      }
+    }
+
+    .alert-success {
+      @apply mb-6 p-4 bg-primary/20 border border-primary rounded-lg;
+
+      .title {
+        @apply font-semibold text-primary;
+      }
+
+      .message {
+        @apply text-sm text-light-100;
+      }
+    }
+
+    .alert-error {
+      @apply mb-6 p-4 bg-destructive/20 border border-destructive rounded-lg;
+
+      .title {
+        @apply font-semibold text-destructive;
+      }
+
+      .message {
+        @apply text-sm text-light-100;
+      }
+    }
+
+    .form-section {
+      @apply bg-dark-100 p-6 rounded-lg border border-dark-200;
+
+      .section-title {
+        @apply text-xl font-semibold mb-4;
+      }
+
+      .form-grid {
+        @apply grid grid-cols-1 md:grid-cols-2 gap-4;
+      }
+
+      .input-wrapper {
+        @apply flex flex-col gap-2;
+
+        label {
+          @apply font-semibold text-sm;
+
+          .required {
+            @apply text-destructive;
+          }
+        }
+
+        input,
+        textarea,
+        select {
+          @apply px-4 py-2 bg-dark-200 border border-border-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-primary;
+        }
+
+        textarea {
+          @apply resize-none;
+        }
+
+        .helper-text {
+          @apply text-sm text-light-200;
+        }
+      }
+    }
+
+    .tag-chip {
+      @apply px-3 py-1 bg-primary/20 text-primary rounded-full text-sm flex items-center gap-2;
+
+      button {
+        @apply text-primary hover:text-primary/80 font-bold;
+      }
+    }
+
+    .agenda-item {
+      @apply flex items-center justify-between p-3 bg-dark-200 rounded-lg;
+
+      .index {
+        @apply font-semibold text-light-200;
+      }
+
+      button {
+        @apply text-destructive hover:text-destructive/80 text-sm;
+      }
+    }
+
+    .add-button {
+      @apply px-4 py-2 bg-primary text-black rounded-lg hover:bg-primary/90 transition;
+    }
+
+    .image-preview {
+      @apply relative w-full max-w-md h-64 rounded-lg overflow-hidden;
+    }
+
+    .submit-button {
+      @apply w-full py-3 px-6 rounded-lg text-black font-semibold text-lg transition bg-primary hover:bg-primary/90;
+
+      &:disabled {
+        @apply bg-dark-200 cursor-not-allowed text-light-200;
+      }
+    }
+  }
 }
