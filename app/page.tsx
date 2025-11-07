@@ -1,7 +1,6 @@
 import EventCard from "@/Components/EventCard";
 import ExploreBtn from "@/Components/ExploreBtn";
 import { IEvent } from "@/database";
-import { get, METHODS } from "http";
 import { cacheLife, cacheTag } from "next/cache";
 // import { events, type Event } from "@/lib/constants";
 
@@ -55,15 +54,8 @@ export default async function Home() {
   cacheLife("hours");
   cacheTag("home-page");
 
-  let events: IEvent[] = [];
-  try {
-    const res = await fetch(`${BaseURL}/api/events`);
-    const data = await res.json();
-    events = data.events;
-  } catch (error) {
-    console.error("Error fetching events:", error);
-    events = [];
-  }
+  const response = await fetch(`${BaseURL}/api/events`);
+  const { events }: { events: IEvent[] } = await response.json();
 
   return (
     <section className="">
