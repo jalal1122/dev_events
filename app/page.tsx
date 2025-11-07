@@ -58,7 +58,6 @@ export default async function Home() {
   let events: IEvent[] = [];
   try {
     const res = await fetch(`${BaseURL}/api/events`);
-    if (!res.ok) throw new Error("Failed to fetch events");
     const data = await res.json();
     events = data.events;
     
