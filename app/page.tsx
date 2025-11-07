@@ -55,7 +55,7 @@ export default async function Home() {
   cacheTag("home-page");
 
   const response = await fetch(`${BaseURL}/api/events`);
-  const { events }: { events: IEvent[] } = await response.json();
+  const { events } = await response.json();
 
   return (
     <section className="">
