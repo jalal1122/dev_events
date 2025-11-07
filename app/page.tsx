@@ -1,6 +1,7 @@
 import EventCard from "@/Components/EventCard";
 import ExploreBtn from "@/Components/ExploreBtn";
 import { IEvent } from "@/database";
+import { get, METHODS } from "http";
 import { cacheLife, cacheTag } from "next/cache";
 // import { events, type Event } from "@/lib/constants";
 
@@ -47,10 +48,9 @@ import { cacheLife, cacheTag } from "next/cache";
 //   },
 // ];
 
-const BaseURL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+const BaseURL = process.env.NEXT_PUBLIC_BASE_URL;
 
 export default async function Home() {
-
   "use cache";
   cacheLife("hours");
   cacheTag("home-page");
@@ -60,7 +60,6 @@ export default async function Home() {
     const res = await fetch(`${BaseURL}/api/events`);
     const data = await res.json();
     events = data.events;
-    
   } catch (error) {
     console.error("Error fetching events:", error);
     events = [];
