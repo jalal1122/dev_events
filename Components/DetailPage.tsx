@@ -55,7 +55,7 @@ const DetailPage = async ({ params }: { params: Promise<string> }) => {
   let event = null;
 
   try {
-    const res = await fetch(`${BaseURL}/api/events/${slug}`, {
+    const res = await fetch(`/api/events/${slug}`, {
       next: { revalidate: 60 },
     });
 
