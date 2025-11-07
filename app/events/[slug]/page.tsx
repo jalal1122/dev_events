@@ -96,8 +96,6 @@ const EventDetails = async ({
 
   const similarEvents: IEvent[] = await GetSimilarEventsBySlug(slug);
 
-  console.log(similarEvents);
-
   return (
     <section id="event">
       <div className="header">

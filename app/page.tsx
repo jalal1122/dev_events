@@ -55,16 +55,16 @@ export default async function Home() {
   cacheLife("hours");
   cacheTag("home-page");
 
-  let events: IEvent[] = [];
-  try {
-    const res = await fetch(`${BaseURL}/api/events`);
-    if (!res.ok) throw new Error("Failed to fetch events");
-    const data = await res.json();
-    events = data.events;
-  } catch (error) {
-    console.error("Error fetching events:", error);
-    events = [];
-  }
+  // let events: IEvent[] = [];
+  // try {
+  //   const res = await fetch(`${BaseURL}/api/events`);
+  //   if (!res.ok) throw new Error("Failed to fetch events");
+  //   const data = await res.json();
+  //   events = data.events;
+  // } catch (error) {
+  //   console.error("Error fetching events:", error);
+  //   events = [];
+  // }
 
   return (
     <section className="">
