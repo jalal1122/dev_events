@@ -46,12 +46,12 @@ const EventTags = ({ tags }: { tags: string[] }) => (
 
 const BaseURL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
-const DetailPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
+const DetailPage = async ({ params }: { params: Promise<string> }) => {
   "use cache";
   cacheLife("seconds");
   cacheTag("event-details-page");
 
-  const { slug } = await params;
+  const slug = await params;
   let event = null;
 
   try {
