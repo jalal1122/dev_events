@@ -2,7 +2,7 @@ import EventCard from "@/Components/EventCard";
 import ExploreBtn from "@/Components/ExploreBtn";
 import { IEvent } from "@/database";
 import { cacheLife, cacheTag } from "next/cache";
-// import { events, type Event } from "@/lib/constants";
+import { events, type Event } from "@/lib/constants";
 
 // const events = [
 //   {
@@ -82,7 +82,7 @@ export default async function Home() {
         <ul id="events" className="events list-none">
           {events &&
             events.length > 0 &&
-            events.map((event: IEvent) => (
+            events.map((event: Event) => (
               <li key={event.title}>
                 <EventCard {...event} />
               </li>
