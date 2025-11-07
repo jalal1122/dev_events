@@ -82,7 +82,7 @@ export default async function Home() {
         <ul id="events" className="events list-none">
           {events &&
             events.length > 0 &&
-            events.map((event: Event) => (
+            events.map((event: IEvent) => (
               <li key={event.title}>
                 <EventCard {...event} />
               </li>
