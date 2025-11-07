@@ -1,6 +1,7 @@
 import BookEvent from "@/Components/BookEvent";
 import EventCard from "@/Components/EventCard";
-import { IEvent } from "@/database";
+import { Event } from "@/database";
+import connectDB from "@/lib/mongodb";
 import { GetSimilarEventsBySlug } from "@/lib/actions/event.actions";
 import { cacheLife, cacheTag } from "next/cache";
 import Image from "next/image";
@@ -44,30 +45,47 @@ const EventTags = ({ tags }: { tags: string[] }) => (
   </div>
 );
 
-const BaseURL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-
-const DetailPage = async ({ params }: { params: Promise<string> }) => {
+const DetailPage = async ({ params }: { params: { slug: string } }) => {
   "use cache";
   cacheLife("hours");
   cacheTag("event-details-page");
 
-  const slug = await params;
-  let event = null;
+  const slug = params.slug;
 
+  // Define a plain/lean event type for server-side rendering
+  type LeanEvent = {
+    _id: string;
+    title: string;
+    slug: string;
+    description: string;
+    overview: string;
+    image: string;
+    venue: string;
+    location: string;
+    date: string;
+    time: string;
+    mode: string;
+    audience: string;
+    agenda: string[];
+    organizer: string;
+    tags: string[];
+    createdAt?: string | Date;
+    updatedAt?: string | Date;
+  };
+
+  // Load event directly from DB on the server (avoid fetching internal API during build)
+  let event: LeanEvent | null = null;
   try {
-    const res = await fetch(`${BaseURL}/api/events/${slug}`, {
-      next: { revalidate: 60 },
-    });
-
-    if (!res.ok) {
-      return notFound();
-    }
-
-    const data = await res.json();
-    event = data.event;
-  } catch {
+    await connectDB();
+    event = (await Event.findOne({
+      slug,
+    }).lean()) as unknown as LeanEvent | null;
+  } catch (err) {
+    console.error("Failed to load event:", err);
     return notFound();
   }
+
+  if (!event) return notFound();
 
   if (!event) {
     return notFound();
@@ -89,7 +107,9 @@ const DetailPage = async ({ params }: { params: Promise<string> }) => {
 
   const bookings = 10;
 
-  const similarEvents: IEvent[] = await GetSimilarEventsBySlug(slug);
+  const similarEvents = (await GetSimilarEventsBySlug(
+    slug
+  )) as unknown as LeanEvent[];
 
   return (
     <section id="event">
@@ -168,7 +188,7 @@ const DetailPage = async ({ params }: { params: Promise<string> }) => {
         <h2>Similar Events</h2>
         <div className="events">
           {similarEvents && similarEvents.length > 0 ? (
-            similarEvents.map((similarEvent: IEvent) => (
+            similarEvents.map((similarEvent: LeanEvent) => (
               <EventCard key={similarEvent.slug} {...similarEvent} />
             ))
           ) : (
