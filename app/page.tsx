@@ -1,6 +1,7 @@
 import EventCard from "@/Components/EventCard";
 import ExploreBtn from "@/Components/ExploreBtn";
-import { IEvent } from "@/database";
+import { IEvent, Event } from "@/database";
+import connectDB from "@/lib/mongodb";
 import { cacheLife, cacheTag } from "next/cache";
 // import { events, type Event } from "@/lib/constants";
 
@@ -47,15 +48,25 @@ import { cacheLife, cacheTag } from "next/cache";
 //   },
 // ];
 
-const BaseURL = process.env.NEXT_PUBLIC_BASE_URL;
+
 
 export default async function Home() {
   "use cache";
   cacheLife("hours");
   cacheTag("home-page");
 
-  const response = await fetch(`${BaseURL}/api/events`);
-  const { events } = await response.json();
+  let events: IEvent[] = [];
+
+  try {
+    // Server-side DB query (avoids fetching your own API route during build)
+    await connectDB();
+  events = (await Event.find().sort({ date: 1 }).lean()) as unknown as IEvent[];
+  } catch (err) {
+  // If DB query fails during build, log and continue with empty list
+  // (prevents build from crashing due to HTML responses when fetching self-hosted APIs)
+  console.error("Failed to load events on server:", err);
+    events = [];
+  }
 
   return (
     <section className="">

@@ -144,8 +144,8 @@ EventSchema.pre("save", function (next) {
   next();
 });
 
-// Create index on slug for faster queries
-EventSchema.index({ slug: 1 });
+// NOTE: `unique: true` is already set on the `slug` field above.
+// Avoid declaring the same index twice which causes Mongoose duplicate index warnings.
 
 /**
  * Export Event model
