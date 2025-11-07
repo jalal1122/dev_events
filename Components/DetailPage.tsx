@@ -45,12 +45,18 @@ const EventTags = ({ tags }: { tags: string[] }) => (
   </div>
 );
 
-const DetailPage = async ({ params }: { params: { slug: string } }) => {
+const DetailPage = async ({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) => {
   "use cache";
   cacheLife("hours");
   cacheTag("event-details-page");
 
-  const slug = params.slug;
+  const { slug } = await params;
+
+  console.log("Event slug:", slug);
 
   // Define a plain/lean event type for server-side rendering
   type LeanEvent = {
@@ -79,17 +85,13 @@ const DetailPage = async ({ params }: { params: { slug: string } }) => {
     await connectDB();
     event = (await Event.findOne({
       slug,
-    }).lean()) as unknown as LeanEvent | null;
+    }).lean()) as LeanEvent | null;
   } catch (err) {
     console.error("Failed to load event:", err);
     return notFound();
   }
 
   if (!event) return notFound();
-
-  if (!event) {
-    return notFound();
-  }
 
   const {
     description,
