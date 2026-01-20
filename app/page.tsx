@@ -48,8 +48,6 @@ import { cacheLife, cacheTag } from "next/cache";
 //   },
 // ];
 
-
-
 export default async function Home() {
   "use cache";
   cacheLife("hours");
@@ -60,11 +58,14 @@ export default async function Home() {
   try {
     // Server-side DB query (avoids fetching your own API route during build)
     await connectDB();
-  events = (await Event.find().sort({ date: 1 }).lean()) as unknown as IEvent[];
+    events = (await Event.find()
+      .sort({ date: 1 })
+      .lean()) as unknown as IEvent[];
+    console.log(events);
   } catch (err) {
-  // If DB query fails during build, log and continue with empty list
-  // (prevents build from crashing due to HTML responses when fetching self-hosted APIs)
-  console.error("Failed to load events on server:", err);
+    // If DB query fails during build, log and continue with empty list
+    // (prevents build from crashing due to HTML responses when fetching self-hosted APIs)
+    console.error("Failed to load events on server:", err);
     events = [];
   }
 
