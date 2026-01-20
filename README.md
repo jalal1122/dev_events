@@ -306,9 +306,8 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 **Your Name**
 
-- GitHub: [@yourusername](https://github.com/yourusername)
-- LinkedIn: [Your Name](https://linkedin.com/in/yourprofile)
-- Twitter: [@yourhandle](https://twitter.com/yourhandle)
+- GitHub: [@jalal1122](https://github.com/jalal1122)
+- LinkedIn: [Muhammad Jalal](https://linkedin.com/in/mjdevstudio)
 
 ---
 
