@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Dev Events Banner](public/images/banner.png)
+![Dev Events Banner](public/banner.png)
 
 **The Hub for Every Dev Event You Can't Miss**
 
