@@ -255,16 +255,15 @@ const { slug } = await params;
 
 ### Homepage
 
-![Homepage](public/images/screenshot-home.png)
+![Homepage](public/homepage.png)
 
 ### Event Details
 
-![Event Details](public/images/screenshot-details.png)
+![Event Details](public/details-page.png)
 
 ### Create Event
 
-![Create Event](public/images/screenshot-create.png)
-
+![Create Event](public/create-event.png)
 </div>
 
 ---
